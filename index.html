@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant Filarakia – Kos, Greece</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--teal:#0097a7;--gold:#c9a84c;--light:#f0f7f9;--dark:#1a2a3a;--text:#444}
+body{font-family:'Inter',sans-serif;color:var(--text)}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 60px;background:rgba(10,30,50,0.7);backdrop-filter:blur(8px)}
+.nav-logo{color:#fff;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:.875rem;transition:.2s}
+.nav-links a:hover{color:#fff}
+.nav-reserve{background:var(--teal);color:#fff;border:none;padding:9px 22px;border-radius:6px;cursor:pointer;font-size:.875rem;font-weight:500}
+
+/* HERO */
+.hero{height:100vh;background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.2)),url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80') center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:20px}
+.hero-sub{font-size:.9rem;letter-spacing:3px;text-transform:uppercase;opacity:.9;margin-bottom:16px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:700;line-height:1.05;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hero-loc{margin-top:12px;font-size:.9rem;opacity:.8;letter-spacing:1px}
+.hero-btn{margin-top:30px;background:white;color:var(--dark);border:none;padding:13px 32px;border-radius:6px;font-size:.95rem;font-weight:600;cursor:pointer;transition:.2s}
+.hero-btn:hover{background:var(--teal);color:#fff}
+
+/* WELCOME */
+.welcome{padding:90px 60px;text-align:center;background:#fff}
+.section-label{font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.welcome h2{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--dark);margin-bottom:20px}
+.welcome p{max-width:580px;margin:0 auto 50px;line-height:1.8;color:#666;font-size:.975rem}
+.features{display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+.feature{flex:1;min-width:200px;max-width:260px;padding:32px 24px;border-radius:12px;background:var(--light);text-align:center}
+.feature-icon{font-size:2rem;margin-bottom:14px}
+.feature h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--dark);margin-bottom:10px}
+.feature p{font-size:.85rem;color:#666;line-height:1.7}
+
+/* GALLERY */
+.gallery{padding:90px 60px;background:var(--light);text-align:center}
+.gallery h2{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--dark);margin-bottom:10px}
+.gallery-sub{color:#666;margin-bottom:40px;font-size:.9rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:900px;margin:0 auto}
+.gallery-grid img{width:100%;height:200px;object-fit:cover;border-radius:8px;transition:.3s}
+.gallery-grid img:first-child{grid-column:span 1;height:250px}
+.gallery-grid img:nth-child(4){grid-column:span 2;height:220px}
+.gallery-grid img:hover{transform:scale(1.02);filter:brightness(1.05)}
+
+/* REVIEWS */
+.reviews{padding:90px 60px;background:#fff;text-align:center}
+.reviews h2{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--dark);margin-bottom:8px}
+.reviews-sub{color:#666;margin-bottom:40px;font-size:.9rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto 40px}
+.review-card{background:var(--light);border-radius:12px;padding:24px;text-align:left}
+.stars{color:#f59e0b;font-size:1rem;margin-bottom:10px}
+.review-card p{font-size:.85rem;color:#555;line-height:1.7;margin-bottom:14px;font-style:italic}
+.reviewer{font-size:.8rem;font-weight:600;color:var(--dark)}
+.reviewer span{font-weight:400;color:#888}
+.rating-summary{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:20px}
+.big-rating{font-size:2.5rem;font-weight:700;color:var(--dark)}
+.rating-detail{text-align:left}
+.rating-detail .stars{font-size:1.2rem}
+.rating-detail small{color:#888;font-size:.8rem}
+
+/* FIND US */
+.findus{padding:90px 60px;background:var(--light)}
+.findus h2{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--dark);text-align:center;margin-bottom:10px}
+.findus-sub{text-align:center;color:#666;margin-bottom:50px;font-size:.9rem}
+.findus-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto}
+.contact-info h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--dark);margin-bottom:20px}
+.contact-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+.contact-icon{font-size:1.1rem;color:var(--teal);margin-top:2px}
+.contact-row p{font-size:.875rem;color:#555;line-height:1.6}
+.contact-row strong{display:block;color:var(--dark);margin-bottom:2px;font-size:.85rem}
+.social-links{display:flex;gap:10px;margin-top:20px}
+.social-links a{width:36px;height:36px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:.9rem}
+.contact-form h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--dark);margin-bottom:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:.8rem;color:#666;margin-bottom:5px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 14px;border:1px solid #dde;border-radius:7px;font-size:.875rem;font-family:'Inter',sans-serif;outline:none;transition:.2s;background:#fff}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--teal)}
+.form-group textarea{height:100px;resize:none}
+.submit-btn{width:100%;background:var(--teal);color:#fff;border:none;padding:12px;border-radius:7px;font-size:.9rem;font-weight:600;cursor:pointer;transition:.2s}
+.submit-btn:hover{background:#00838f}
+.map-container{max-width:900px;margin:40px auto 0;border-radius:12px;overflow:hidden;height:280px}
+.map-container iframe{width:100%;height:100%;border:0}
+
+/* FOOTER */
+footer{background:var(--dark);color:rgba(255,255,255,.7);padding:50px 60px 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand p{font-size:.85rem;line-height:1.8;margin-top:12px;max-width:260px}
+.footer-brand .nav-logo{font-size:1.2rem}
+footer h4{color:#fff;font-size:.9rem;margin-bottom:16px;font-weight:600}
+footer ul{list-style:none}
+footer ul li{margin-bottom:9px}
+footer ul li a{color:rgba(255,255,255,.65);text-decoration:none;font-size:.85rem;transition:.2s}
+footer ul li a:hover{color:#fff}
+footer ul li span{font-size:.85rem}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;font-size:.8rem;color:rgba(255,255,255,.4)}
+
+@media(max-width:768px){
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  .hero h1{font-size:2.8rem}
+  .welcome,.gallery,.reviews,.findus{padding:60px 24px}
+  .features{flex-direction:column;align-items:center}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gallery-grid img:nth-child(4){grid-column:span 1}
+  .reviews-grid{grid-template-columns:1fr}
+  .findus-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  footer{padding:40px 24px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Filarakia</div>
+  <ul class="nav-links">
+    <li><a href="#welcome">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#findus">Contact</a></li>
+  </ul>
+  <button class="nav-reserve">Reserve</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-sub">Greek & Dutch Cuisine</p>
+  <h1>Restaurant<br>Filarakia</h1>
+  <p class="hero-loc">📍 Kos, Greece</p>
+  <button class="hero-btn">View Menu</button>
+</section>
+
+<!-- WELCOME -->
+<section class="welcome" id="welcome">
+  <p class="section-label">Our Story</p>
+  <h2>Welcome to Restaurant Filarakia</h2>
+  <p>Nestled on the beautiful shores of Kos, Filarakia brings together the warmth of Greek hospitality and the comfort of Dutch cuisine. Whether you're seeking a refreshing cocktail at sunset, fresh seafood, or hearty Dutch specialties, our restaurant awaits you.</p>
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">🍽️</div>
+      <h3>Greek & Dutch Fusion</h3>
+      <p>Experience the best of both worlds with our unique blend of Mediterranean and Dutch culinary traditions.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🌅</div>
+      <h3>Beachfront Paradise</h3>
+      <p>Dine with breathtaking views of the Aegean Sea and enjoy magical sunsets every evening.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🤝</div>
+      <h3>Warm Hospitality</h3>
+      <p>Filarakia means "friends" in Greek — and that's exactly how we treat every guest who walks through our door.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <p class="section-label">Gallery</p>
+  <h2>Our Gallery</h2>
+  <p class="gallery-sub">A glimpse into the Filarakia experience — from our delicious dishes to stunning sunsets.</p>
+  <div class="gallery-grid">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Restaurant interior">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Beach sunset">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine dining">
+    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" alt="Grilled meat dish">
+    <img src="https://images.unsplash.com/photo-1473186578172-c141e6798cf4?w=600&q=80" alt="Tropical beach">
+    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" alt="Wine glasses">
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <p class="section-label">Testimonials</p>
+  <h2>What Our Guests Say</h2>
+  <p class="reviews-sub">Don't just take our word for it — hear from our wonderful guests.</p>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"The perfect blend of Greek and Dutch cuisine! The moussaka was amazing, and the stroopwafel dessert was authentic. The sunset view from the beach was unforgettable!"</p>
+      <div class="reviewer">Maria K. <span>— Amsterdam, Netherlands</span></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Finally a place in Kos that feels like home but with a view! The staff make you feel like family. Will definitely return next summer."</p>
+      <div class="reviewer">Dominic P. <span>— Kos, Greece</span></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"We celebrated our anniversary here and it was magical. The staff made us feel special and the food was outstanding. Already planning our next visit!"</p>
+      <div class="reviewer">Jan & Lisa <span>— Den Haag, Netherlands</span></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Mind-blowing! Our dining experience in Kos. The cocktails were amazing, the atmosphere was so relaxed. Highly recommend!"</p>
+      <div class="reviewer">Sophie M. <span>— Rotterdam</span></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"You must run to Filarakia. It brings something special to your meal. The fusion menu is innovative while respecting our traditions."</p>
+      <div class="reviewer">Andreas V. <span>— Kos, Greece</span></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"The fresh seafood paired with their Dutch specialties is a combination we didn't know we needed. The beachfront location makes it perfect."</p>
+      <div class="reviewer">Emma & Tom <span>— Utrecht</span></div>
+    </div>
+  </div>
+  <div class="rating-summary">
+    <div class="big-rating">5.0</div>
+    <div class="rating-detail">
+      <div class="stars">★★★★★</div>
+      <small>Based on 200+ reviews</small>
+    </div>
+  </div>
+</section>
+
+<!-- FIND US -->
+<section class="findus" id="findus">
+  <p class="section-label">Visit Us</p>
+  <h2>Find Us</h2>
+  <p class="findus-sub">We'd love to welcome you to Filarakia. Get in touch or simply drop by!</p>
+  <div class="findus-grid">
+    <div class="contact-info">
+      <h3>Contact Information</h3>
+      <div class="contact-row">
+        <span class="contact-icon">📍</span>
+        <p><strong>Address</strong>Beachfront Road 123<br>Kos Town, Kos 85300</p>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">📞</span>
+        <p><strong>Phone</strong>+30 22420 12345</p>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">✉️</span>
+        <p><strong>Email</strong>info@filarakia.nl</p>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">🕐</span>
+        <p><strong>Opening Hours</strong>Daily: 11:00 – 00:00<br>Kitchen: 12:00 – 23:00</p>
+      </div>
+      <div class="social-links">
+        <a href="#">f</a>
+        <a href="#">in</a>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Send us a Message</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="you@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Reservation / Question...">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Write your message here..."></textarea>
+      </div>
+      <button class="submit-btn">Send Message</button>
+    </div>
+  </div>
+  <div class="map-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12934.123456789!2d27.0!3d36.89!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14987f1234567890%3A0x0!2sKos+Town%2C+Greece!5e0!3m2!1sen!2snl!4v1234567890" allowfullscreen loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">Filarakia</div>
+      <p>Where Greek warmth meets Dutch comfort. Beachfront Road 123, Kos Town, Kos, Greece. Your home away from home on the beautiful island of Kos.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#welcome">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#findus">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Opening Hours</h4>
+      <ul>
+        <li><span>Monday – Friday: 11:00 – 00:00</span></li>
+        <li><span>Saturday – Sunday: 10:00 – 01:00</span></li>
+        <li><span>Kitchen closes: 23:00</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Restaurant Filarakia, Kos, Greece. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
