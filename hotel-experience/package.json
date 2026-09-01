@@ -1,0 +1,29 @@
+{
+  "name": "hotel-experience",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "three": "0.169.0",
+    "gsap": "3.12.5",
+    "lenis": "1.1.16",
+    "framer-motion": "11.11.9"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/node": "20.16.11",
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.1",
+    "@types/three": "0.169.0",
+    "eslint": "8.57.1",
+    "eslint-config-next": "14.2.35"
+  }
+}
