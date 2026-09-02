@@ -1,0 +1,118 @@
+// AI Growth Assistant — data model
+// SQLite has no native enum support, so enum-like fields are plain strings;
+// the allowed values are enforced in src/lib/types.ts.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Business {
+  id          String   @id @default(cuid())
+  name        String
+  serviceType String   @default("General Contracting")
+  city        String   @default("")
+  phone       String   @default("")
+  timezone    String   @default("America/New_York")
+  createdAt   DateTime @default(now())
+
+  leads        Lead[]
+  callLogs     CallLog[]
+  contentIdeas ContentIdea[]
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  name        String?
+  phone       String
+  email       String?
+  source      String   @default("missed_call")
+  jobType     String?
+  urgency     String?
+  location    String?
+  budget      String?
+  notes       String?
+  temperature String   @default("WARM") // HOT | WARM | COLD
+  stage       String   @default("NEW") // NEW | CONTACTED | QUALIFIED | ESTIMATE_SENT | BOOKED | WON | LOST
+  value       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  messages       Message[]
+  appointments   Appointment[]
+  scheduledTasks ScheduledTask[]
+
+  @@index([businessId, stage])
+  @@index([businessId, temperature])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id])
+  direction String // INBOUND | OUTBOUND
+  channel   String   @default("SMS") // SMS | CALL | SYSTEM
+  body      String
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+}
+
+model Appointment {
+  id             String   @id @default(cuid())
+  leadId         String
+  lead           Lead     @relation(fields: [leadId], references: [id])
+  scheduledAt    DateTime
+  durationMin    Int      @default(60)
+  status         String   @default("PENDING") // PENDING | CONFIRMED | COMPLETED | NO_SHOW | CANCELLED
+  reminder24Sent Boolean  @default(false)
+  reminder2Sent  Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  @@index([leadId])
+}
+
+model ScheduledTask {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id])
+  type      String // FOLLOW_UP_1H | FOLLOW_UP_24H | FOLLOW_UP_3D | ESTIMATE_FOLLOW_UP | REACTIVATION | NO_SHOW_RESCHEDULE | APPOINTMENT_REMINDER_24H | APPOINTMENT_REMINDER_2H
+  runAt     DateTime
+  status    String   @default("PENDING") // PENDING | SENT | CANCELLED | FAILED
+  payload   String?
+  createdAt DateTime @default(now())
+
+  @@index([status, runAt])
+}
+
+model CallLog {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  fromNumber String
+  toNumber   String
+  missed     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@index([businessId])
+}
+
+model ContentIdea {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  weekOf     DateTime
+  platform   String
+  hook       String
+  caption    String
+  cta        String
+  createdAt  DateTime @default(now())
+
+  @@index([businessId, weekOf])
+}
