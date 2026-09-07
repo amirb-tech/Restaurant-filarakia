@@ -1,0 +1,38 @@
+name: Trading Copilot Scan
+
+on:
+  schedule:
+    # Every 30 minutes, Mon-Fri, roughly covering pre-market through after-hours
+    # US trading (13:00-22:00 UTC). Forex pairs trade nearly 24/5 but this keeps
+    # API usage well within the free tier.
+    - cron: "*/30 13-22 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print signals instead of sending to Telegram"
+        type: boolean
+        default: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: trading-copilot
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run market scan
+        env:
+          TWELVE_DATA_API_KEY: ${{ secrets.TWELVE_DATA_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: python -m src.main
