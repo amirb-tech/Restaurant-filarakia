@@ -1,0 +1,18 @@
+# Symbols the copilot scans on every run.
+# Twelve Data symbol format: stock tickers as-is, forex pairs as "BASE/QUOTE".
+# Keep this list short on the free API tier (8 requests/minute, 800/day).
+
+interval: "1h"        # candle size: e.g. "15min", "1h"
+lookback: 150          # number of historical candles to fetch per symbol
+
+stocks:
+  - AAPL
+  - MSFT
+  - NVDA
+  - TSLA
+  - AMZN
+
+forex:
+  - EUR/USD
+  - GBP/USD
+  - USD/JPY
