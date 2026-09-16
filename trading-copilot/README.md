@@ -101,6 +101,46 @@ python -m src.main
 DRY_RUN=true python -m src.main
 ```
 
+## Backtesting
+
+`src/backtest.py` walks forward through historical candles bar-by-bar and
+simulates the exact same scoring logic used live (imported directly from
+`strategy.py`, not reimplemented), so results reflect what the bot would
+actually have signaled — no lookahead:
+
+- A trade only opens once its signal bar has closed, filled at the **next**
+  bar's open.
+- It's then walked forward until its stop-loss or take-profit is hit
+  (checked against each bar's high/low), or it's force-closed after
+  `MAX_HOLD_BARS` (default 60) bars.
+- Only one open trade per symbol at a time.
+
+```bash
+cd trading-copilot
+export TWELVE_DATA_API_KEY=your_key
+python -m src.backtest                          # full available history per symbol
+python -m src.backtest --start 2024-01-01 --end 2024-12-31
+```
+
+Output, per symbol and combined:
+
+| Metric | Meaning |
+|---|---|
+| `win_rate_pct` | % of trades closed with a positive R-multiple |
+| `avg_r` | average result per trade, in multiples of risk (R) |
+| `total_r` | sum of all trade R-multiples |
+| `profit_factor` | gross winning R / gross losing R (>1 is profitable) |
+| `max_drawdown_r` | largest peak-to-trough drop in cumulative R |
+
+Twelve Data's free tier caps historical depth and request volume, so for a
+meaningful sample size either backtest one symbol at a time with a long
+`--start`/`--end` range, or upgrade your plan.
+
+**Note:** a backtest reflects only its historical sample and doesn't account
+for slippage, spread, or how the same setup will trade in unseen conditions.
+Treat results as a sanity check on the strategy's logic, not a guarantee of
+future performance.
+
 ## Disclaimer
 
 This tool produces automated technical-analysis signals for informational

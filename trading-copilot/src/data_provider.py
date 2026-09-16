@@ -1,5 +1,7 @@
 """Market data fetching via the Twelve Data API (free tier covers stocks + forex)."""
 
+from __future__ import annotations
+
 import pandas as pd
 import requests
 
@@ -10,7 +12,14 @@ class DataProviderError(Exception):
     pass
 
 
-def fetch_candles(symbol: str, interval: str, outputsize: int, api_key: str) -> pd.DataFrame:
+def fetch_candles(
+    symbol: str,
+    interval: str,
+    outputsize: int,
+    api_key: str,
+    start_date: str | None = None,
+    end_date: str | None = None,
+) -> pd.DataFrame:
     """Fetch OHLCV candles for a symbol, oldest-first, as a DataFrame."""
     params = {
         "symbol": symbol,
@@ -19,6 +28,10 @@ def fetch_candles(symbol: str, interval: str, outputsize: int, api_key: str) -> 
         "apikey": api_key,
         "format": "JSON",
     }
+    if start_date:
+        params["start_date"] = start_date
+    if end_date:
+        params["end_date"] = end_date
     response = requests.get(BASE_URL, params=params, timeout=20)
     response.raise_for_status()
     payload = response.json()
